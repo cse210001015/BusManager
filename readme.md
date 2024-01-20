@@ -2,11 +2,12 @@ BUS BOOKING SYSTEM ::
 
 BACKEND + DATABASE WORK::
 
-Users (UserID | UserName | Password | UserLoc | Admin?)
+Users (UserID | UserName | Password | UserCoordinates | Admin?)
 Buses (BusID | SeatPlan | OperationDays | Booked?)
 Bookings (BookingID | UserID | BusID | SeatLoc | Departure | Arrival)
 Stops (LocationID | BusID | BusArrivalTime | BusDepartureTime)
 Routes (FromID | ToID | Distance | Cost | Time) (relation between stops)
+Location (LocationName | Coordinates)
 
 Users need an authentication SYSTEM
 
