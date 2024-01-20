@@ -109,4 +109,75 @@ class adminRouteView(APIView):
     def delete(self, request, pk):
         deleteRoute = Routes.objects.get(id = pk).delete()
         return Response(deleteRoute[0])
+class getroutes(APIView):
+    def get(self, request):
+        location1=request.GET.get('location1')
+        location2=request.GET.get('location2')
+        routes1 = Routes.objects.filter(fromStop = location1)
+        routes2 =Routes.objects.filter(toStop=location2)
+        v1={}
+        v2={}
+        q1=[]
+        q2=[]
+        v1[location1]=location1
+        v2[location2]=location2
+
+        for route in routes1:
+            v1[route.toStop]=location1
+            q1.append(route.toStop)
+        for route in routes2:
+            v2[route.fromStop]=location2
+            q2.append(route.fromStop)
+        itr=0
+        threshold=10
+        while itr<threshold:
+            for stop in q1:
+                if stop in v1:
+                    continue
+                routes=Routes.objects.filter(fromStop=stop)
+                for route in routes:
+                    if route.toStop not in v1:
+                        v1[route.toStop]=stop
+                        q1.append(route.toStop)
+            for stop in q2:
+                if stop in v2:
+                    continue
+                routes=Routes.objects.filter(toStop=stop)
+                for route in routes:
+                    if route.toStop not in v2:
+                        v2[route.fromStop]=stop
+                        q2.append(route.fromStop)
+            itr+=1
+            for stop in v1:
+                if stop in v2:
+                    path=[]
+                    tmp=stop
+                    while tmp!=v1[tmp]:
+                        path.append(tmp)
+                        tmp=v1[tmp]
+                    path.append(tmp)
+                    path.reverse()
+                    tmp=stop
+                    while tmp!=v2[tmp]:
+                        path.append(tmp)
+                        tmp=v2[tmp]
+                    print(path)
+                    serializer = PathSerializer(path)
+                    return Response("hellp")
+                    
+                    
+        return Response("hellp")
+                    
+                
+            
+                        
+                
+            
+            
+
+
+
+        
+
+        
 

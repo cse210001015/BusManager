@@ -14,3 +14,7 @@ class RoutesSerializer(ModelSerializer):
     class Meta:
         model = Routes
         fields = '__all__'
+class PathSerializer(ModelSerializer):
+    class Meta:
+        model = list
+        fields = '__all__'

@@ -19,7 +19,7 @@ class Routes(models.Model):
     toStop = models.TextField()
     distance = models.IntegerField()
     cost = models.IntegerField()
-    time = models.DateTimeField()
+    time = models.IntegerField()
 
 class Location(models.Model):
     """
