@@ -75,6 +75,7 @@ class adminLocationViews(APIView):
         updateLocation.save()
         serializer = LocationSerializer(updateLocation)
         return Response(serializer.data)
+    
 
     def delete(self, request, pk):
         deleteLocation = Location.objects.get(id = pk).delete()
@@ -85,3 +86,27 @@ class adminRoutesViews(APIView):
         routes = Routes.objects.all()
         serializer = RoutesSerializer(routes, many=True)
         return Response(serializer.data)
+    def post(self, request):
+        body = request.body.decode('utf-8')
+        body = json.loads(body)
+        newRoute = Routes.objects.create(**body)
+        serializer = RoutesSerializer(newRoute)
+        return Response(serializer.data)
+class adminRouteView(APIView):
+    def get(self, request, pk):
+        route = Routes.objects.get(id = pk)
+        serializer = RoutesSerializer(route)
+        return Response(serializer.data)
+    def patch(self, request, pk):
+        body = request.body.decode('utf-8')
+        body = json.loads(body)
+        updateRoute = Routes.objects.get(id = pk)
+        for key in body:
+            setattr(updateRoute, key, body[key])
+        updateRoute.save()
+        serializer = RoutesSerializer(updateRoute)
+        return Response(serializer.data)
+    def delete(self, request, pk):
+        deleteRoute = Routes.objects.get(id = pk).delete()
+        return Response(deleteRoute[0])
+
