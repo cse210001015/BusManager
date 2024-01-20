@@ -8,5 +8,5 @@ urlpatterns=[
     path('admin-location-view/<pk>/', views.adminLocationViews.as_view(), name = 'Admin Location API'),
     path('admin-routes-view/', views.adminRoutesViews.as_view(), name = 'Admin Routes API'),
     path('admin-routes-view/<pk>/', views.adminRouteView.as_view(), name = 'Admin Route API'),
-    path('path/', views.getroutes.as_view(), name = 'Admin Path API'),
+    path('path/<str:l1>/<str:l2>', views.getroutes.as_view(), name = 'Admin Path API'),
 ]

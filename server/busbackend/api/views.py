@@ -110,9 +110,13 @@ class adminRouteView(APIView):
         deleteRoute = Routes.objects.get(id = pk).delete()
         return Response(deleteRoute[0])
 class getroutes(APIView):
-    def get(self, request):
-        location1=request.GET.get('location1')
-        location2=request.GET.get('location2')
+    def get(self,request,l1,l2):
+        # location1=self.request.GET.get('l1')
+        # location2=self.request.GET.get('l2')
+        # location1='A'
+        # location2='D'
+        location1=l1
+        location2=l2
         routes1 = Routes.objects.filter(fromStop = location1)
         routes2 =Routes.objects.filter(toStop=location2)
         v1={}
@@ -157,13 +161,18 @@ class getroutes(APIView):
                         tmp=v1[tmp]
                     path.append(tmp)
                     path.reverse()
+                    path.pop()
+                    print(path)
                     tmp=stop
+                    print(tmp)
                     while tmp!=v2[tmp]:
+                        print(tmp)
                         path.append(tmp)
                         tmp=v2[tmp]
+                    path.append(tmp)
                     print(path)
                     serializer = PathSerializer(path)
-                    return Response("hellp")
+                    return Response(path)
                     
                     
         return Response("hellp")
