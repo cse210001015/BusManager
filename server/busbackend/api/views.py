@@ -3,8 +3,9 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
-from .models import Bus, Location
-from .serialisers import BusSerializer, LocationSerializer
+from .models import *
+
+from .serialisers import *
 import json
 
 
@@ -81,4 +82,6 @@ class adminLocationViews(APIView):
 
 class adminRoutesViews(APIView):
     def get(self, request):
-        pass
+        routes = Routes.objects.all()
+        serializer = RoutesSerializer(routes, many=True)
+        return Response(serializer.data)
