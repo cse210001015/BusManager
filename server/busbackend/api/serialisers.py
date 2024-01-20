@@ -1,6 +1,12 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Note
-class NoteSerializer(ModelSerializer):
+from .models import Bus, Location
+
+class BusSerializer(ModelSerializer):
     class Meta:
-        model=Note
+        model=Bus
         fields='__all__'
+
+class LocationSerializer(ModelSerializer):
+    class Meta:
+        model = Location
+        fields = '__all__'

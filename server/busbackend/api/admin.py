@@ -1,5 +1,9 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
-from .models import Note
-admin.site.register(Note)
+admin.site.register(Bookings)
+admin.site.register(Bus)
+admin.site.register(Routes)
+admin.site.register(Location)
+admin.site.register(Users)
+admin.site.register(Stops)
